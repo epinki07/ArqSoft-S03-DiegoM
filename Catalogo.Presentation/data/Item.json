@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Deb\u00ED tirar m\u00E1s fotos",
+    "Genero": "Urbana",
+    "Ano": 2025,
+    "Formato": "Digital",
+    "Artista": "Bad bunny",
+    "Comentarios": []
+  },
+  {
+    "Id": 2,
+    "Nombre": "Guts",
+    "Genero": "Pop",
+    "Ano": 2021,
+    "Formato": "Vinilo",
+    "Artista": "Diego Ramirez",
+    "Comentarios": []
+  },
+  {
+    "Id": 3,
+    "Nombre": "Jukilop",
+    "Genero": "Urbana",
+    "Ano": 2025, 
+    "Formato": "Digital", 
+    "Artista": "Kimberli tu patrona",
+    "Comentarios": []
+  },
+  {
+    "Id": 4,
+    "Nombre": "Dinast\u00EDa",
+    "Genero": "Regional mexicana",
+    "Ano": 2024,
+    "Formato": "CD",
+    "Artista": "Peso Pluma, Tito Double P",
+    "Comentarios": []
+  },
+  {
+    "Id": 5,
+    "Nombre": "Arirang",
+    "Genero": "K-Pop",
+    "Ano": 2023,
+    "Formato": "Digital",
+    "Artista": "BTS",
+    "Comentarios": []
+  }
+]

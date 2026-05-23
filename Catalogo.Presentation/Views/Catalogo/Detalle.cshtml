@@ -1,0 +1,403 @@
+@using Microsoft.AspNetCore.Http
+@model CatalogoApp.Domain.Models.Item
+
+<div class="detail-container">
+    <div class="detail-header">
+        <p class="detail-kicker">Ficha del álbum</p>
+        <h1 class="detail-title">@Model.Nombre</h1>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-item">
+            <div class="detail-label">Artista</div>
+            <div class="detail-value">@Model.Artista</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Género</div>
+            <div class="detail-value">@Model.Genero</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Formato</div>
+            <div class="detail-value">@Model.Formato</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Año</div>
+            <div class="detail-value">@Model.Ano</div>
+        </div>
+    </div>
+
+    <section class="rating-section">
+        <div>
+            <h2>Calificación</h2>
+            <p>Promedio basado en los comentarios registrados.</p>
+        </div>
+        <div class="rating-display">
+            @{
+                double promedio = ViewBag.PromedioRating ?? 0;
+                int cantidadComentarios = ViewBag.CantidadComentarios ?? 0;
+            }
+            <div class="rating-stars" aria-label="Calificación promedio">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= Math.Round(promedio))
+                    {
+                        <span class="star filled">★</span>
+                    }
+                    else
+                    {
+                        <span class="star">☆</span>
+                    }
+                }
+            </div>
+            <div class="rating-meta">
+                <strong>@Math.Round(promedio, 1) / 5</strong>
+                <span>@cantidadComentarios comentario(s)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="comments-section">
+        <div class="section-heading">
+            <h2>Comentarios</h2>
+            <span>@Model.Comentarios.Count total</span>
+        </div>
+
+        @if (Model.Comentarios.Any())
+        {
+            <div class="comments-list">
+                @foreach (var comentario in Model.Comentarios.OrderByDescending(c => c.Fecha))
+                {
+                    <article class="comment-item">
+                        <div class="comment-header">
+                            <strong>@comentario.NombreUsuario</strong>
+                            <span>@comentario.Fecha.ToString("dd/MM/yyyy HH:mm")</span>
+                        </div>
+                        <div class="comment-rating">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= comentario.Rating)
+                                {
+                                    <span class="star-small filled">★</span>
+                                }
+                                else
+                                {
+                                    <span class="star-small">☆</span>
+                                }
+                            }
+                            <span class="rating-badge">@comentario.Rating/5</span>
+                        </div>
+                        <p class="comment-text">@comentario.Texto</p>
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="no-comments">No hay comentarios todavía.</p>
+        }
+    </section>
+
+    @{
+        var usuarioLogueado = Context.Session.GetString("usuarioNombre");
+    }
+
+    <section class="add-comment-section">
+        <h2>Añadir comentario</h2>
+
+        @if (!string.IsNullOrEmpty(usuarioLogueado))
+        {
+            @if (TempData["Exito"] != null)
+            {
+                <div class="alert alert-success alert-custom">
+                    <p>@TempData["Exito"]</p>
+                </div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-custom">
+                    <p>@TempData["Error"]</p>
+                </div>
+            }
+
+            <form asp-action="AgregarComentario" method="post" class="comment-form">
+                <input type="hidden" name="itemId" value="@Model.Id" />
+
+                <div class="form-group">
+                    <label for="ratingInput">Calificación</label>
+                    <div class="rating-input">
+                        <div class="stars-selector" id="starsSelector">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <button class="star-label" type="button" data-value="@i" title="@i estrella(s)">★</button>
+                            }
+                            <input type="hidden" id="ratingInput" name="rating" value="0" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="texto">Tu comentario</label>
+                    <textarea id="texto" name="texto" placeholder="Escribe tu comentario" minlength="5" maxlength="500" required rows="4"></textarea>
+                    <small>Entre 5 y 500 caracteres.</small>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-submit">Enviar comentario</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-info alert-custom">
+                <p>Debes <a asp-controller="Auth" asp-action="Login">iniciar sesión</a> para comentar.</p>
+            </div>
+        }
+    </section>
+
+    <div class="detail-actions">
+        <a asp-action="Index" class="btn-back">Volver a la colección</a>
+    </div>
+</div>
+
+<style>
+<<<<<<< HEAD
+    .detail-kicker {
+        margin: 0 0 0.5rem;
+        color: #99f6e4;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+=======
+    .rating-section {
+        margin: 2rem 0;y
+        padding: 1.5rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+        border-left: 4px solid #F3742B;
+>>>>>>> 5ecfc59f9dcba49e98afc3fa421b126c068c3caf
+    }
+
+    .detail-grid {
+        display: grid;
+        gap: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .rating-section,
+    .comments-section,
+    .add-comment-section {
+        margin-top: 1.5rem;
+        padding: 1.25rem;
+        background: #f8fafc;
+        border: 1px solid #d9e0e8;
+        border-radius: 8px;
+    }
+
+    .rating-section {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .rating-section h2,
+    .comments-section h2,
+    .add-comment-section h2 {
+        margin: 0 0 0.35rem;
+        font-size: 1.25rem;
+    }
+
+    .rating-section p {
+        margin: 0;
+    }
+
+    .rating-display {
+        display: grid;
+        gap: 0.35rem;
+        justify-items: end;
+    }
+
+    .rating-stars,
+    .stars-selector {
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .star,
+    .star-small,
+    .star-label {
+        color: #cbd5e1;
+    }
+
+    .star {
+        font-size: 1.8rem;
+    }
+
+    .star-small {
+        font-size: 1.1rem;
+    }
+
+    .star.filled,
+    .star-small.filled,
+    .star-label.is-active {
+        color: #c2410c;
+    }
+
+    .rating-meta {
+        display: grid;
+        justify-items: end;
+        color: #637083;
+        font-size: 0.9rem;
+    }
+
+    .rating-meta strong {
+        color: #17202a;
+        font-size: 1rem;
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-heading span {
+        color: #637083;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+
+    .comments-list {
+        display: grid;
+        gap: 0.85rem;
+    }
+
+    .comment-item {
+        padding: 1rem;
+        background: #ffffff;
+        border: 1px solid #d9e0e8;
+        border-radius: 8px;
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .comment-header strong {
+        color: #17202a;
+    }
+
+    .comment-header span {
+        color: #637083;
+        font-size: 0.85rem;
+    }
+
+    .comment-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .rating-badge {
+        margin-left: 0.35rem;
+        padding: 0.12rem 0.45rem;
+        color: #9a3412;
+        background: #ffedd5;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .comment-text {
+        margin: 0.65rem 0 0;
+        color: #17202a;
+    }
+
+    .no-comments {
+        margin: 0;
+    }
+
+    .comment-form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .rating-input {
+        padding: 0.75rem;
+        background: #ffffff;
+        border: 1px solid #d9e0e8;
+        border-radius: 8px;
+    }
+
+    .star-label {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font-size: 2rem;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .star-label:hover,
+    .star-label:focus {
+        color: #c2410c;
+        outline: none;
+    }
+
+    @@media (max-width: 768px) {
+        .rating-section {
+            grid-template-columns: 1fr;
+        }
+
+        .rating-display,
+        .rating-meta {
+            justify-items: start;
+        }
+
+        .comment-header,
+        .section-heading {
+            align-items: start;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const starLabels = document.querySelectorAll('.star-label');
+        const ratingInput = document.getElementById('ratingInput');
+
+        function paintStars(value) {
+            starLabels.forEach((label, index) => {
+                label.classList.toggle('is-active', index < value);
+            });
+        }
+
+        starLabels.forEach((label) => {
+            label.addEventListener('mouseenter', function () {
+                paintStars(parseInt(this.dataset.value));
+            });
+
+            label.addEventListener('click', function () {
+                const value = parseInt(this.dataset.value);
+                ratingInput.value = value;
+                paintStars(value);
+            });
+        });
+
+        const starsSelector = document.getElementById('starsSelector');
+        starsSelector.addEventListener('mouseleave', function () {
+            paintStars(parseInt(ratingInput.value || '0'));
+        });
+    });
+</script>

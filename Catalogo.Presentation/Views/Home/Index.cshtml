@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="hero-section">
+    <h1 class="hero-title">Archivo Sonoro</h1>
+    <p class="hero-subtitle">Una colección musical ordenada para consultar álbumes, formatos, artistas y opiniones en un solo lugar.</p>
+    <div class="hero-buttons">
+        <a asp-controller="Catalogo" asp-action="Index" class="btn-primary-custom">
+            Explorar colección
+        </a>
+        <a asp-controller="Catalogo" asp-action="Agregar" class="btn-add">
+            Agregar álbum
+        </a>
+    </div>
+</div>

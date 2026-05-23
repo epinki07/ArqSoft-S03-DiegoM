@@ -1,0 +1,71 @@
+@model List<CatalogoApp.Domain.Models.Item>
+
+@{
+    var generos = ViewBag.Generos as List<string> ?? new List<string>();
+}
+
+<div class="filter-section">
+    <h1 class="typewriter">Colección musical</h1>
+
+    <div class="filter-buttons">
+        <a asp-action="Index" class="btn-filter">
+            Todos
+        </a>
+        @foreach (var gen in generos)
+        {
+            <a asp-action="Index" asp-route-genero="@gen" class="btn-filter">
+                @gen
+            </a>
+        }
+        <a asp-action="Agregar" class="btn-add">
+            Agregar álbum
+        </a>
+    </div>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="album-grid">
+        @foreach (var item in Model)
+        {
+            <div class="album-card">
+                <div class="album-header">
+                    <h3 class="album-title">
+                        @item.Nombre
+                    </h3>
+                </div>
+                <div class="album-body">
+                    <div class="album-info">
+                        <div class="album-info-item">
+                            <span class="emoji"></span>
+                            <span><span class="album-label">Artista:</span> @item.Artista</span>
+                        </div>
+                        <div class="album-info-item">
+                            <span class="emoji"></span>
+                            <span><span class="album-label">Género:</span> @item.Genero</span>
+                        </div>
+                        <div class="album-info-item">
+                            <span class="emoji"></span>
+                            <span><span class="album-label">Año:</span> @item.Ano</span>
+                        </div>
+                        <div class="album-info-item">
+                            <span class="emoji"></span>
+                            <span><span class="album-label">Formato:</span> @item.Formato</span>
+                        </div>
+                    </div>
+                    <div class="album-footer">
+                        <a asp-action="Detalle" asp-route-id="@item.Id" class="btn-album btn-view">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center" role="alert">
+        <p class="mb-0">No hay álbumes disponibles. Comienza <a asp-action="Agregar">agregando uno</a>.</p>
+    </div>
+}

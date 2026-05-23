@@ -1,0 +1,51 @@
+﻿@model CatalogoApp.Domain.Models.Item;
+
+<div class="form-container">
+    <h1>Agregar álbum</h1>
+
+    <form asp-action="Agregar" method="post">
+        <div class="form-group">
+            <label for="Nombre">
+                Nombre del álbum
+            </label>
+            <input type="text" asp-for="Nombre" id="Nombre" placeholder="Ej: Abbey Road" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Artista">
+                Artista
+            </label>
+            <input type="text" asp-for="Artista" id="Artista" placeholder="Ej: The Beatles" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Genero">
+                Género
+            </label>
+            <input type="text" asp-for="Genero" id="Genero" placeholder="Ej: Rock, Pop, Jazz" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Ano">
+                Año
+            </label>
+            <input type="number" asp-for="Ano" id="Ano" placeholder="Ej: 2024" min="1900" max="2100" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Formato">
+                Formato
+            </label>
+            <input type="text" asp-for="Formato" id="Formato" placeholder="Ej: CD, Vinilo, Digital" required />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-primary-custom">
+                Guardar álbum
+            </button>
+            <a asp-action="Index" class="btn-secondary-custom">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>

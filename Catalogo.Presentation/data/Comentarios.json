@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "ItemId": 4,
+    "NombreUsuario": "epinki",
+    "Texto": "me aprendi el album por los trends de tiktok",
+    "Rating": 5,
+    "Fecha": "2026-05-20T22:17:16.981017-06:00"
+  },
+  {
+    "Id": 2,
+    "ItemId": 5,
+    "NombreUsuario": "epinki",
+    "Texto": "odio bts",
+    "Rating": 1,
+    "Fecha": "2026-05-20T22:17:42.8600303-06:00"
+  },
+  {
+    "Id": 3,
+    "ItemId": 1,
+    "NombreUsuario": "epinki",
+    "Texto": "el mejor album pero no le gana a al utlimo tour del mundo",
+    "Rating": 5,
+    "Fecha": "2026-05-20T22:18:31.967772-06:00"
+  },
+  {
+    "Id": 4,
+    "ItemId": 2,
+    "NombreUsuario": "epinki",
+    "Texto": "Me gusta pk le gust  ami novia",
+    "Rating": 2,
+    "Fecha": "2026-05-20T22:20:22.3440165-06:00"
+  },
+  {
+    "Id": 5,
+    "ItemId": 3,
+    "NombreUsuario": "epinki",
+    "Texto": "el peor album de kenia os pero tiene buen concepto",
+    "Rating": 2,
+    "Fecha": "2026-05-20T22:20:46.2949847-06:00"
+  }
+]
